@@ -1,4 +1,4 @@
-# Mobile Banking App - Flutter
+# Swift Banking App - Flutter
 
 A secure and modern mobile banking application built with Flutter, following best practices and clean architecture principles.
 
