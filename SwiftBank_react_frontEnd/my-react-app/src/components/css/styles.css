@@ -1,0 +1,243 @@
+.navContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    color: white;
+    padding: 5px 10px;
+}
+nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+nav ul li{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .7rem;
+}
+nav ul li p{
+    display: none;
+    color: white;
+    text-decoration: none;
+   
+}
+.navIcon{
+    width: 1.3rem;
+    fill: white;
+    margin: auto;
+    
+}
+.navIcon:hover{
+    cursor: pointer;
+    background-color: #ffffff;
+    fill: #000000;
+    width: 3rem;
+    padding: .7rem;
+    border-radius: 50%;
+}
+.profile{
+    color: #000000;
+}
+.profile svg{
+    width: 1.3rem;
+    fill: rgb(0, 0, 0);
+    margin: auto;
+}
+
+.dropdown{
+    width: rem;
+    height: 10rem;
+   
+    
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 1rem;
+  
+}
+.notAuserBox{
+    display: flex;
+   
+}
+.text{
+    color: black;
+    z-index: 1000;
+    position: absolute;
+}
+
+.mainFormbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f5f5f5;
+}
+.formlogo{
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+.formtitle h2{
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000000;
+}
+.formtitle p{
+    font-size: 1rem;
+    color: #7a7a7a;
+}
+.flogo{
+    width: 2.5rem;
+    fill: #000000;
+    margin: auto;
+}
+.formContainer{
+    
+   width: 100%;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: .9rem;
+}
+.formdisplay{
+    display: none;
+}
+.cardbox{
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+form{
+    display: grid;
+    width: 100%;
+    margin: auto;
+    
+}
+Input{
+    margin-bottom: 1.5rem;
+}
+.toLogin{
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+.toLogin a:hover{
+    cursor: pointer;
+   
+}
+
+
+/* HeroSection styles */
+
+.MainContainerFront{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: #f5f5f5;
+}
+.caraousel{
+    display: none;
+}
+
+
+
+/* Tablet styles */
+@media (min-width: 641px) and (max-width: 850px) {
+    body {
+        font-size: 18px; /* Increase font size for tablets */
+        
+    }
+
+    /* Additional tablet-specific styles */
+    .container {
+        max-width: 750px; /* Limit container width */
+    }
+}
+
+/* Small Desktop styles */
+@media (min-width: 855px) and (max-width: 1280px) {
+    body {
+        font-size: 20px; /* Increase font size for small desktops */
+      
+    }
+    .cardbox{
+        max-width: 70%;
+    }
+    .formdisplay{
+        display: flex;
+        width: 50%;
+        padding: 1rem;
+    }
+    .formContainer{
+        width: 50%;
+    }
+
+    /* Additional small desktop-specific styles */
+    .container {
+        max-width: 900px; /* Limit container width */
+    }
+}
+
+/* Medium Desktop styles */
+@media (min-width: 1281px) {
+    body {
+        font-size: 1rem; /* Increase font size for medium desktops */
+       
+    }
+    .cardbox{
+        max-width: 70%;
+    }
+    .formdisplay{
+        display: flex;
+        width: 50%;
+        padding: 1rem;
+    }
+    .formContainer{
+        width: 50%;
+    }
+    form{
+        max-width: 70%;
+    }
+    .caraousel{
+        display: flex;
+        height: 35rem;
+        overflow: hidden;
+    }
+    .itemText{
+        position: absolute;
+        width: 40rem;
+        padding: 1rem;
+        text-align: left;
+        z-index: 1000;
+        
+        top: 10rem;
+    }
+    .itemText h2{
+        font-size: 3.5rem;
+        color: #ffffff;
+    }
+    .itemText p{
+        font-size: 1rem;
+        color: #ffffff;
+    }
+    .herobutton{
+        margin-top: 1rem;
+    }
+    .heropic{
+        filter: brightness(70%);
+        
+    }
+    
+   
+
+    /* Additional medium desktop-specific styles */
+    .container {
+        max-width: 1100px; /* Limit container width */
+    }
+}
+

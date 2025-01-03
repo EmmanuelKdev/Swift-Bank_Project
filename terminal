@@ -1,0 +1,9 @@
+flutter create swift_bank_app
+cd swift_bank_app
+mkdir -p lib/core lib/data lib/domain lib/presentation 
+
+# Get Flutter dependencies
+flutter pub get 
+
+mkdir src
+mv index.ts src/ 

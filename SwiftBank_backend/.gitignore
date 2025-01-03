@@ -1,0 +1,33 @@
+# Environment variables
+.env
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# Debug
+.debug/
+
+# Temporary files
+.tmp/
