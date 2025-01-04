@@ -226,6 +226,29 @@ Input{
     padding: 1rem;
 }
 
+.tableContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: .9rem;
+    padding-bottom: 1rem;
+}
+.table{
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: .7rem;
+}
+.table li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 2rem;
+    border-bottom: 1px solid #919191;
+}
+
 
 
 /* Tablet styles */

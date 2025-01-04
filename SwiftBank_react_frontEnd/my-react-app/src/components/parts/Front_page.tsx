@@ -350,6 +350,17 @@ function Front_page() {
               </div>
             </div>
           </Card>
+          <Card>
+            <div className="tableContainer">
+              <h2>SWIFT's banking services</h2>
+              <ul className="table">
+                <li> <p>Account security</p> <span>Go</span></li>
+                <li> <p>Account security</p> <span>Go</span></li>
+                <li> <p>Account security</p> <span>Go</span></li>
+                <li> <p>Account security</p> <span>Go</span></li>
+              </ul>
+            </div>
+          </Card>
 
         </div>
       </div>
