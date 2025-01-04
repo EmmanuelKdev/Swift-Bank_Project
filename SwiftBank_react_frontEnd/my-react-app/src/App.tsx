@@ -14,7 +14,11 @@ function App() {
 
   return (
     <div className='MainContainer'>
-      <Navbar />
+      <div className='NavbarContainer'>
+       <Navbar />
+
+      </div>
+      
       <div className='ContentContainer'>
       
        <Routes>  // Changed Switch to Routes
