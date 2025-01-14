@@ -6,6 +6,15 @@ import { processTransaction} from '../utils/transactionUtils';
 import { hashPassword } from '../utils/authutils';
 import { generate4DigitPin, generateVerificationCode } from '../utils/codegenerators';
 import { AuthController } from '../controllers/authControllers';
+import Joi from 'joi';
+
+// User input schema validation
+const userInputSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required(),
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+});
 
 // Transaction interface
 interface TransactionInput {
@@ -62,17 +71,54 @@ export const resolvers = {
   Mutation: {
     //create user via web Registration
     createUser: async (_: any, { input }: { input: any }) => {
-      const { email, password, firstName, lastName } = input;
-      const passwordHash = await hashPassword(password);
-      const userCode = generateVerificationCode();
-      const pin = generate4DigitPin();
-      const SessionToken = ''
-      
-      const result = await query(
-        'INSERT INTO users (email, password_hash, first_name, last_name, user_Code, pin, session_tocken) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-        [email, passwordHash, firstName, lastName, userCode, pin, SessionToken]
-      );
-      return result[0];
+      const { error } = userInputSchema.validate(input);
+      if (error) {
+        throw new Error(`Validation Error: ${error.details[0].message}`);
+      }
+  
+      try {
+        const { email, password, firstName, lastName } = input;
+        const passwordHash = await hashPassword(password);
+        const userCode = generateVerificationCode();
+        const pin = generate4DigitPin();
+  
+        const queryText = `
+          INSERT INTO users (
+            email, 
+            password_hash, 
+            first_name, 
+            last_name, 
+            user_code, 
+            pin
+          )
+          VALUES ($1, $2, $3, $4, $5, $6)
+          RETURNING 
+            id,
+            email,
+            first_name as "firstName",
+            last_name as "lastName",
+            user_code as "userCode",
+            pin;
+        `;
+  
+        const result = await query(queryText, [
+          email,
+          passwordHash,
+          firstName,
+          lastName,
+          userCode,
+          pin
+        ]);
+  
+        if (!result[0]) {
+          throw new Error('User creation failed');
+        }
+  
+        return result[0];
+      } catch (error: any) {
+        console.error('Error creating user:', error);
+        throw new Error('Failed to create user');
+      }
     },
 
     // create account for user

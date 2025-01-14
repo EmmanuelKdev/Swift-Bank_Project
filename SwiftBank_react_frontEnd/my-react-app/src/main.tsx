@@ -5,6 +5,8 @@ import App from './App.tsx'
 import client from './apolloClient.ts'
 import { ApolloProvider } from '@apollo/client'
 import { BrowserRouter as Router } from 'react-router-dom'
+import {Provider} from 'react-redux';
+import store from './redux/store';
 
 
 
@@ -13,7 +15,12 @@ createRoot(document.getElementById('root')!).render(
     <Router>
 
     <ApolloProvider client={client}>
-       <App />
+      
+      <Provider store={store}>
+
+        <App />
+
+      </Provider>
 
      </ApolloProvider>
 

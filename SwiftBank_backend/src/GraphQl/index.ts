@@ -21,5 +21,6 @@ export const createApolloServer = async (app: any) => {
  
  
   await server.start();
-  server.applyMiddleware({ app , cors: { origin: '*', credentials: true } });
+  server.applyMiddleware({ app , cors: { 
+    origin: 'http://localhost:5173', credentials: true,methods: ['GET', 'POST', 'OPTIONS'],allowedHeaders: ['Content-Type', 'Authorization'] } });
 };

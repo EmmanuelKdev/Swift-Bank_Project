@@ -12,6 +12,9 @@ import picOne from "@/assets/images/herocarasel (2).jpg";
 import picTwo from "@/assets/images/herocarasel (1).png";
 import picThree from "@/assets/images/herocarasel (3).jpg";
 import picFour from "@/assets/images/herocarasel (4).jpg";
+import healthInsurance from "@/assets/images/healthInsurance2.jpg";
+import payment from "@/assets/images/payments.jpg";
+import goldmember from "@/assets/images/goldmember.jpg";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -271,14 +274,14 @@ function Front_page() {
               <div className="card_image">
                
                 <div className="picbox">
-                 <img className="displaypicture" src={picOne} alt="picOne" />
+                 <img className="displaypicture" src={healthInsurance} alt="picOne" />
 
                 </div>           
                
               </div>
               <div className="card_text">
                 <div className="tittle">
-                  <h2>Heading One</h2>
+                  <h2>Health insurance that meets your needs.</h2>
                 </div>
                 <div className="card_description">
                   <p>
@@ -299,14 +302,14 @@ function Front_page() {
               <div className="card_image">
                 
                 <div className="picbox">
-                 <img className="displaypicture" src={picOne} alt="picOne" />
+                 <img className="displaypicture" src={payment} alt="picOne" />
 
                 </div>           
                
               </div>
               <div className="card_text">
                 <div className="tittle">
-                  <h2>Heading One</h2>
+                  <h2>Pay or request money with Swift payment.</h2>
                 </div>
                 <div className="card_description">
                   <p>
@@ -327,14 +330,14 @@ function Front_page() {
               <div className="card_image">
                 
                 <div className="picbox">
-                 <img className="displaypicture" src={picOne} alt="picOne" />
+                 <img className="displaypicture" src={goldmember} alt="picOne" />
 
                 </div>           
                
               </div>
               <div className="card_text">
                 <div className="tittle">
-                  <h2>Heading One</h2>
+                  <h2>More benefits as a Gold customer.</h2>
                 </div>
                 <div className="card_description">
                   <p>
@@ -350,19 +353,73 @@ function Front_page() {
               </div>
             </div>
           </Card>
-          <Card>
-            <div className="tableContainer">
-              <h2>SWIFT's banking services</h2>
-              <ul className="table">
-                <li> <p>Account security</p> <span>Go</span></li>
-                <li> <p>Account security</p> <span>Go</span></li>
-                <li> <p>Account security</p> <span>Go</span></li>
-                <li> <p>Account security</p> <span>Go</span></li>
-              </ul>
+          
+            <div className="tableHolder">
+              <Card>
+                <div className="tableContainer">
+                  <h2>SWIFT's banking services</h2>
+                  <ul className="table">
+                    <li> <p>Become Swift's Customer</p> <span>Go</span></li>
+                    <li> <p>Become Swift's corporate customer</p> <span>Go</span></li>
+                    <li> <p>Owner-customer benefits</p> <span>Go</span></li>
+                    <li> <p>Savings Calculator</p> <span>Go</span></li>
+                  </ul>
+                </div>
+                
+              </Card>
+
+             
+              <Card>
+                <div className="tableContainer">
+                  <h2>SWIFT's Insurance services</h2>
+                    <ul className="table">
+                      <li> <p>Insurance for private Customers</p> <span>Go</span></li>
+                      <li> <p>Insurance for corporate customers</p> <span>Go</span></li>
+                      <li> <p>Request an offer for several insurance products</p> <span>Go</span></li>
+                      <li> <p>Did you encounter a Loss? Claim Help</p> <span>Go</span></li>
+                    </ul>
+                </div>
+
+              </Card>
+             
+              <Card>
+                <div className="tableContainer">
+                  <h2>Whats New</h2>
+                    <ul className="table">
+                      <li> <p>Banking app Comming Soon</p> <span>Go</span></li>
+                      <li> <p>Upgrade to Investing System</p> <span>Go</span></li>
+                      <li> <p>Flexible Loans</p> <span>Go</span></li>
+                      <li> <p>Savings Calculator</p> <span>Go</span></li>
+                    </ul>
+                </div>
+
+              </Card>
+             
+
             </div>
-          </Card>
+            
+          
 
         </div>
+        <footer>
+          <div className="footer">
+            <div className="searchbar">
+              <input type="text" placeholder="Search" />
+              <button><svg className="searchIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></button>
+            </div>
+            <div className="footerText">
+              <p>SWIFT BANK</p>
+              <p>© 2025 Swift Bank. All rights reserved.</p>
+            </div>
+            <div className="footerLinks">
+              <ul>
+                <li>Privacy Policy</li>
+                <li>Terms and Conditions</li>
+                <li>Cookie Policy</li>
+              </ul>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );

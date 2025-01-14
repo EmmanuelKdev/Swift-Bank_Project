@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import initializeDatabase from './database/Postgressql/init';
 import { createApolloServer } from './GraphQl/index';
 
+
 dotenv.config();
 
 const app = express();

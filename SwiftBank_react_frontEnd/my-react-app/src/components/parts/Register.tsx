@@ -1,3 +1,4 @@
+
 import React from 'react'
 import {
     Card,
@@ -11,12 +12,20 @@ import { Input } from "@/components/ui/input"
 
 import { Button } from "@/components/ui/button"  
 import { Link } from 'react-router-dom'
+import { useAppDispatch } from '@/redux/hooks'
+import { setGraphQLData } from '@/redux/dataslice'
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '@/graphql/mutations';
+import { useNavigate } from 'react-router-dom';
+
 
 function Register() {
     const [firstName, setFirstName] = React.useState('')
     const [lastName, setLastName] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     // Handle text input
     const handleFirstName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,12 +41,42 @@ function Register() {
         setPassword(e.target.value)
     }
 
+    // GraphQL Mutation
+
+    const [addUser,{loading, error}] = useMutation(CREATE_USER,{
+        onCompleted: (data) => {
+            console.log(data)
+            dispatch(setGraphQLData(data));
+            navigate('/login');
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+    })
+
 
     // Handle Submit
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        console.log(firstName, lastName, email, password)
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log("Starting Submission")   
+        try{
+            console.log(firstName, lastName, email, password)
+            await addUser({
+                variables: {
+                    input: {
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        password: password
+                    }
+                }
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+       
     }
 
 
@@ -59,12 +98,15 @@ function Register() {
                                  <p> A Bank you can Trust</p>
                            </div>
                         </div>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <Input onChange={handleFirstName} placeholder='First Name' />
                             <Input onChange={handleLastName} placeholder='Last Name' />
                             <Input onChange={handleEmail} placeholder='Email' />
                             <Input onChange={handlePassword} placeholder='Password' />
-                            <Button onSubmit={()=> handleSubmit}>Submit</Button>
+                            <Button type='submit'>
+                                {loading ? 'Adding...' : 'Submit'}
+                            </Button>
+                            {error && <p>Something went wrong</p>}
                             <div className='toLogin'>
                                 <p>Already have an account? <Link to={'/login'}>Login Here</Link> </p>
                             </div>

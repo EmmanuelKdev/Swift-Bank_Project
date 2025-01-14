@@ -16,6 +16,9 @@ const initializeDatabase = async () => {
           password_hash VARCHAR(255) NOT NULL,
           first_name VARCHAR(100) NOT NULL,
           last_name VARCHAR(100) NOT NULL,
+          user_code VARCHAR(255) NOT NULL,
+          pin VARCHAR(255) NOT NULL,
+          session_token VARCHAR(255) NULL,
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         );
