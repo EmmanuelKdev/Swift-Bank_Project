@@ -5,6 +5,7 @@ export const generate8DigitCode = (): string => {
   export const generate4DigitPin = (): string => {
     return Math.floor(1000 + Math.random() * 9000).toString();
   };
+
   
   // Optional: Generate with expiry
   export const generateVerificationCode = (expiryMinutes: number = 10) => {

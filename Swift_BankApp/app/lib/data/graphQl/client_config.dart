@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 // Graph Ql configuration class
 
 class GraphQLConfig {
-  static String baseUrl = 'http://localhost:3002/graphql';
+  static String baseUrl = 'http://10.0.2.2:3002/graphql';
 
   static Future<ValueNotifier<GraphQLClient>> clientToQuery() async {
     final HttpLink httpLink = HttpLink(baseUrl);

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309965133216",
+    "project_id": "swiftbankproject",
+    "storage_bucket": "swiftbankproject.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309965133216:android:db567f4884c761ea8280c5",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXiJr8WBzhAozljXFqMADkVYD9RCwKmzM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

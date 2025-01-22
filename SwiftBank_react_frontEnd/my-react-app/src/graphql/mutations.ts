@@ -13,3 +13,15 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+// this is web login mutation
+export const LOGIN_USER = gql`
+  mutation InitiateWebLogin($email: String!, $password: String!) {
+    initiateWebLogin(email: $email, password: $password) {
+      userId
+      sessionToken
+      user 
+     
+    }
+  }
+`;

@@ -12,18 +12,44 @@ class AuthMutations {
     }
 
  ''';
+
+  // Create New PIN Mutation
+  static String createNewPin = '''
+    mutation CreateNewPin(\$userCode: String!, \$pin: String!) {
+      createNewPin(userCode: \$userCode, pin: \$pin) {
+        success
+        message
+        user {
+          id
+          email
+          firstName
+          lastName
+        }
+      }
+    }
+  ''';
+
   // Normal Login Mutations
 
   static String login = '''
-    mutation mobileLogin(\$email: String!, \$password: String!) {
-       mobileLogin(email: \$email, password: \$password) {
-       id
-       email
-       firstName
-       lastName
+    mutation MobileLogin(\$pin: String!) {
+      mobileLogin(pin: \$pin) {
+        success
+        message
+        user {
+          id
+          email
+          firstName
+          lastName
+          sessionToken
+        }
+        errors {
+          field
+          message
+        }
+      }
     }
-  }
- ''';
+  ''';
 }
 
 class Queries {

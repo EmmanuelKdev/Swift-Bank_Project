@@ -244,12 +244,12 @@ Input{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    
 }
 .tableContainer{
     display: flex;
     flex-direction: column;
-    width: 25rem;
+    width: 24rem;
     padding: 1rem;
 }
 .table{

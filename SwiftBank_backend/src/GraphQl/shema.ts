@@ -51,7 +51,11 @@ export const typeDefs = gql`
 
   type WebLoginResponse {
     userId: String!
-    requiresMobileVerification: Boolean!
+    user: String
+    sessionToken: String
+    status: String
+    message: String
+    requiresMobileVerification: Boolean
   }
 
   enum AccountType {
@@ -84,6 +88,7 @@ export const typeDefs = gql`
     getUserAccounts(userId: ID!): [Account!]
     getAccountTransactions(accountId: ID!): [Transaction!]
     verificationMobileStatus(mobileHash: String!): AuthResponse!
+    
   }
 
   type Mutation {

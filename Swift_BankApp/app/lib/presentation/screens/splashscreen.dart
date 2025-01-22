@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:app/data/controllers/index.dart';
 import 'package:app/data/source/secure_storage_utility.dart';
 import 'package:app/data/source/session_manager.dart';

@@ -23,7 +23,7 @@ import {
 function Navbar() {
     const [isOpen, setIsOpen] = React.useState(false);
     
-    const [userData, setUserData] = React.useState<UserData | any>([{name: 'John Doe'}]);
+    const [userData, setUserData] = React.useState<UserData | any>([]);
 
 
    

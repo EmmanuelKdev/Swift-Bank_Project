@@ -11,11 +11,18 @@ import { Input } from "@/components/ui/input"
 
 import { Button } from "@/components/ui/button"  
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { LOGIN_USER } from '@/graphql/mutations'
+import { useMutation } from '@apollo/client';
+import { useAppDispatch } from '@/redux/hooks'
+import { setGraphQLData } from '@/redux/dataslice'
 
 function Login() {
    
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     // Handle text input
     
@@ -26,12 +33,34 @@ function Login() {
         setPassword(e.target.value)
     }
 
+    // GraphQL Mutation
+    const [loginUser,{loading, error}] = useMutation(LOGIN_USER,{
+        onCompleted: (data) => {
+            console.log(data)
+            dispatch(setGraphQLData(data));
+            navigate('/user_homepage');
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+    })
+
 
     // Handle Submit
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        console.log( email, password)
+        console.log( "starting Log in function",email, password)
+        try {
+           await loginUser({
+                variables: {
+                    email: email,
+                    password: password
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -53,13 +82,16 @@ function Login() {
                                  <p> A Bank you can Trust</p>
                            </div>
                         </div>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                            
                             <Input onChange={handleEmail} placeholder='Email' />
                             <Input onChange={handlePassword} placeholder='Password' />
-                            <Button onSubmit={()=> handleSubmit}>Login</Button>
+                            <Button type='submit'>
+                               {loading ? 'Logging In...': 'Login'}
+                            </Button>
+                            {error && <p>Something went wrong</p>}
                             <div className='toLogin'>
-                                <p>Dont have an Account? <Link to={'/register'}>Login Here</Link> </p>
+                                <p>Dont have an Account? <Link to={'/register'}>Register Here</Link> </p>
                             </div>
                         </form>
                     </div>

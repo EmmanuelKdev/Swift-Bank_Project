@@ -7,6 +7,7 @@ import './App.css'
 import About from './components/parts/About'
 import Register from './components/parts/Register'
 import Login from './components/parts/Login'
+import UserHomepage from './components/user_parts/user_homepage'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
          <Route path='/contact' element={<Contact />} />  // Changed component to element
          <Route path='/login' element={<Login />} />  // Changed component to element
          <Route path='/register' element={<Register />} />  // Changed component to element
+         <Route path='/user_homepage' element={<UserHomepage />} />  // Changed component to element
        </Routes>
      
       </div>

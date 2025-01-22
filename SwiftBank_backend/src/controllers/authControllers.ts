@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { query } from '../database/Postgressql/db';
-import { comparePasswords } from '../utils/authutils';
-import { generateVerificationCode} from '../utils/codegenerators';
+import { comparePasswords, generateSessionToken} from '../utils/authutils';
+//import { generateVerificationCode} from '../utils/codegenerators';
 import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
+//import path from 'path';
+//import { sendPushNotification } from '../utils/pushnotifications';
 
 export class AuthController {
   // First-time mobile login with 8-digit code + PIN
@@ -89,26 +92,47 @@ export class AuthController {
 
   // Web login with mobile verification
   static async initiateWebLogin(email: string, password: string) {
+
+    console.log('Attempting Web Login');
     try {
       const user = await query('SELECT * FROM users WHERE email = $1', [email]);
-      
-      if (!user[0] || !await comparePasswords(password, user[0].password_hash)) {
+  
+      // Step 1: Validate user
+      if (!user[0] || !(await comparePasswords(password, user[0].password_hash))) {
         throw new Error('Invalid credentials');
-      }
-
-      // Generate temporary verification code
-      const verificationCode = generateVerificationCode(5); // 5 minutes expiry
+      } 
       
-      await query(
-        'UPDATE users SET web_verification_code = $1, web_verification_expires = $2 WHERE id = $3',
-        [verificationCode.code, verificationCode.expiresAt, user[0].id]
-      );
+      const sessToken = await generateSessionToken(user[0].id);
+      await query('UPDATE users SET session_token = $1 WHERE id = $2', [sessToken, user[0].id]);
 
-      return { userId: user[0].id, requiresMobileVerification: true };
+
+
+  
+      // Step 2: Generate verification code
+     // const verificationCode = generateVerificationCode(5); // Returns { code, expiresAt }
+      //await query(
+       // 'UPDATE users SET web_verification_code = $1, web_verification_expires = $2 WHERE id = $3',
+       // [verificationCode.code, verificationCode.expiresAt, user[0].id]
+      //);
+  
+      // Step 3: Send notification
+      //if (user[0].push_notification_token) {
+        // Send a push notification
+       // await sendPushNotification(
+        //  user[0].push_notification_token,
+         // 'Verification Required',
+         // `Your verification code is ${verificationCode.code}.`
+        //);
+      //} else {
+        //throw new Error('No valid delivery method for verification request');
+      //}
+  
+      return { user: user[0] };
     } catch (error) {
       throw new Error(`Login failed: ${error}`);
     }
   }
+  
 
   // Verify web login with mobile PIN
   static async verifyWebLogin(userId: string, pin: string) {

@@ -3,7 +3,7 @@
 import { query } from '../database/Postgressql/db';
 import { generateAccountNumber } from '../utils/acountNumber';
 import { processTransaction} from '../utils/transactionUtils';
-import { hashPassword } from '../utils/authutils';
+import { generateSessionToken, hashPassword } from '../utils/authutils';
 import { generate4DigitPin, generateVerificationCode } from '../utils/codegenerators';
 import { AuthController } from '../controllers/authControllers';
 import Joi from 'joi';
@@ -34,7 +34,9 @@ export const resolvers = {
       return result[0];
     },
 
-    getAccount: async (_: any, { id,res,req }: { id: string, res: any, req: any }) => {
+      
+
+        getAccount: async (_: any, { id, res, req }: { id: string, res: any, req: any }) => {
       const result = await query(
         'SELECT * FROM accounts WHERE id = $1',
         [id]
@@ -146,8 +148,43 @@ export const resolvers = {
 
     } ,
     
-    initiateWebLogin: (_: unknown, { email, password }: { email: string, password: string }) => 
-      AuthController.initiateWebLogin(email, password),
+    initiateWebLogin: async (parent: any, { email, password, res }: { email: string, password: string, res: any }) => {
+      try{
+          const response = await AuthController.initiateWebLogin(email, password);
+           if(!response){
+              return {
+               status: 'failed',
+               message: 'Invalid credentials'
+             }
+          }
+
+       
+        console.log(response)
+        res.cookie('session_token', response.user.session_token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict'
+        });
+
+        return {
+          userId: response.user.id,
+          user: response.user.first_name,
+          sessionToken: response.user.session_token,
+          status: 'success',
+          message: 'Web login initiated',
+          
+
+        }
+      } catch (error: any) {
+        console.error('Error initiating web login:', error);
+        return {
+          status: 'failed',
+          message: 'Error initiating web login:' + error
+        }
+      }
+
+    }
+     ,
     
     verifyWebLogin: (_: unknown, { userId, pin }: { userId: string, pin: string }) => 
       AuthController.verifyWebLogin(userId, pin),

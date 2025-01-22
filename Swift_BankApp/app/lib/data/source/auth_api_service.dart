@@ -3,7 +3,9 @@ import 'package:app/data/models/authmodels.dart';
 import 'package:app/data/source/resources.dart';
 import 'package:app/data/source/service_locator.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:app/data/source/secure_storage_utility.dart';
 
 abstract class AuthApiService {
   Future<Either<Failure, AuthResponse>> firstLogin({
@@ -36,7 +38,40 @@ class AuthApiServiceImpl extends AuthApiService {
       // parse the response into the model
       final authResponse =
           AuthResponse.fromJson(result.data!['firstTimeLogin']);
+      //Get and save the push token
+      FirebaseMessaging.instance.getToken().then((String? token) {
+        if (token != null) {
+          SecureStorage.savePushToken(token);
+        }
+      });
+      // Get and save the mobile hash
+      await SecureStorage.savePermanentToken(authResponse.mobileHash);
       // return the model with the right side of the Either or data.
+      return Right(authResponse);
+    } catch (e) {
+      return Left(ServerFailure('Server Failure'));
+    }
+  }
+
+  Future<Either<Failure, AuthResponse>> login({
+    required String pin,
+  }) async {
+    try {
+      final MutationOptions options = MutationOptions(
+        document: gql(AuthMutations.login),
+        variables: <String, dynamic>{
+          'pin': pin,
+        },
+      );
+
+      final QueryResult result = await _client.mutate(options);
+
+      if (result.hasException) {
+        return Left(NetworkFailure('Network Failure'));
+      }
+
+      final authResponse = AuthResponse.fromJson(result.data!['login']);
+
       return Right(authResponse);
     } catch (e) {
       return Left(ServerFailure('Server Failure'));
