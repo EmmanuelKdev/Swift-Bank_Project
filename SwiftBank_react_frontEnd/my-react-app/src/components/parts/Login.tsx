@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { LOGIN_USER } from '@/graphql/mutations'
 import { useMutation } from '@apollo/client';
 import { useAppDispatch } from '@/redux/hooks'
-import { setGraphQLData } from '@/redux/dataslice'
+import { setUser,setAccounts,setError,setLoading } from '@/redux/dataslice'
 
 function Login() {
    
@@ -36,14 +36,19 @@ function Login() {
     // GraphQL Mutation
     const [loginUser,{loading, error}] = useMutation(LOGIN_USER,{
         onCompleted: (data) => {
-            console.log(data)
-            dispatch(setGraphQLData(data));
+            console.log("user data from login",data)
+            dispatch(setUser(data.initiateWebLogin.user));
+            dispatch(setAccounts(data.initiateWebLogin.accounts));
+            dispatch(setLoading(false));
             navigate('/user_homepage');
         },
         onError: (error) => {
+            dispatch(setError(error.message));
+            dispatch(setLoading(false));
             console.log(error)
         }
     })
+    
 
 
     // Handle Submit

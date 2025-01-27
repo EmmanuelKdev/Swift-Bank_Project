@@ -4,8 +4,8 @@ export const typeDefs = gql`
   type User {
     id: ID!
     email: String!
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     accounts: [Account!]
     createdAt: String!
     updatedAt: String!
@@ -13,8 +13,8 @@ export const typeDefs = gql`
 
   type Account {
     id: ID!
-    accountNumber: String!
-    accountType: AccountType!
+    accountNumber: String
+    accountType: AccountType
     balance: Float!
     currency: String!
     status: AccountStatus!
@@ -52,6 +52,7 @@ export const typeDefs = gql`
   type WebLoginResponse {
     userId: String!
     user: String
+    accounts: [Account!]!
     sessionToken: String
     status: String
     message: String
@@ -84,10 +85,12 @@ export const typeDefs = gql`
 
   type Query {
     getUser(id: ID!): User
+    getUserBySessionToken: User
     getAccount(id: ID!): Account
     getUserAccounts(userId: ID!): [Account!]
     getAccountTransactions(accountId: ID!): [Transaction!]
     verificationMobileStatus(mobileHash: String!): AuthResponse!
+    
     
   }
 
@@ -96,6 +99,7 @@ export const typeDefs = gql`
     createAccount(input: CreateAccountInput!): Account!
     createTransaction(input: CreateTransactionInput!): Transaction!
     updateAccountStatus(id: ID!, status: AccountStatus!): Account!
+    logout: Boolean!
   }
 
   input CreateUserInput {

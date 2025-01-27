@@ -1,0 +1,149 @@
+.card_container{
+    background-image: url('/src/assets/images/hompageBanner.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0;
+
+    width: 100%;
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-fluid{
+    --bs-gutter-x: 0 !important;
+}
+.card_info{
+    background-color: rgba(255, 255, 255, 0.249);
+    width: 90%;
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: .6rem ;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    backdrop-filter: blur(3px);
+
+}
+.Account_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: .6rem ;
+    margin-top: 2rem;
+}
+.Account_container ul{
+   display: flex;
+   flex-direction: column;
+   padding: 0;
+   width: 100%;
+}
+.Account_container ul li{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+    padding: .5rem;
+    border-bottom: 1px solid #ccc;
+}
+
+  body {
+   
+    font-family: "Josefin Sans", sans-serif;
+  }
+  
+
+
+  
+ 
+  
+  .logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    padding: 0;
+  }
+  
+  .logo img {
+   
+    width: 80px;
+    height: auto;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+  }
+
+  .chip{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+  }
+  
+  .chip img {
+   
+    width: 50px;
+    height: auto;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+  }
+  .details{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  
+    
+  }
+  .valid{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .number,
+  .name,
+  .from,
+  .to {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  }
+  
+  .number {
+    left: 40px;
+    bottom: 65px;
+    font-family: "Nunito", sans-serif;
+  }
+  
+  .name {
+    font-size: 0.5rem;
+    left: 40px;
+    bottom: 35px;
+  }
+  
+  .from {
+    font-size: 0.5rem;
+    bottom: 35px;
+    right: 110px;
+  }
+  
+  .to {
+    font-size: 0.5rem;
+    bottom: 35px;
+    right: 40px;
+  }
+  
+ 

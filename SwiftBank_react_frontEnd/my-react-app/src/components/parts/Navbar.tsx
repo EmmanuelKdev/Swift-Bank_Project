@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+
+
 import '../css/styles.css'
 import { Link } from 'react-router-dom'
 import { Button } from '../ui/button'
@@ -12,18 +12,41 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
+import { useAppSelector } from '@/redux/hooks';
+import { useDispatch } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { logout } from '@/redux/dataslice';
+import { LOGOUT_USER } from '@/graphql/mutations';
+import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
-  //Interfaces
-  interface UserData {
-    name: string;
-  }
+interface User {
+    firstName: string;
+    lastName?: string;
+    email?: string;
+   
+}
+
+
 
  
 
 function Navbar() {
-    const [isOpen, setIsOpen] = React.useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [logoutUser] = useMutation(LOGOUT_USER, {
+        onCompleted: (data) => {
+            console.log(data)
+            dispatch(logout())
+            navigate('/')
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+    })
     
-    const [userData, setUserData] = React.useState<UserData | any>([]);
+    const userData = useAppSelector((state: RootState) => state.data.user as User| null);
 
 
    
@@ -63,13 +86,13 @@ function Navbar() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                        {!userData ? ( // Conditional rendering
+                        {userData ? ( // Conditional rendering
                                             <div className='dropdown'>
                                                 <DropdownMenuLabel>Profile</DropdownMenuLabel>
-                                                <DropdownMenuItem onSelect={() => setUserData({name: 'John Doe'})}>John Doe</DropdownMenuItem>
-                                                <DropdownMenuItem onSelect={() => setUserData({name: 'Jane Doe'})}>Jane Doe</DropdownMenuItem>
+                                                <DropdownMenuItem >{userData.firstName }{userData.lastName}</DropdownMenuItem>
+                                                <DropdownMenuItem >{userData.email}</DropdownMenuItem>
                                                 <DropdownMenuSeparator />
-                                                <DropdownMenuItem onSelect={() => setUserData({name: 'Log Out'})}>Log Out</DropdownMenuItem>
+                                                <DropdownMenuItem onClick={()=> logoutUser()} >Log Out</DropdownMenuItem>
                                             
                                             </div>
                                         ) : (

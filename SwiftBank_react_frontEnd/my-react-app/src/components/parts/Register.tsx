@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"  
 import { Link } from 'react-router-dom'
 import { useAppDispatch } from '@/redux/hooks'
-import { setGraphQLData } from '@/redux/dataslice'
+import { setUser } from '@/redux/dataslice'
 import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '@/graphql/mutations';
 import { useNavigate } from 'react-router-dom';
@@ -46,7 +46,7 @@ function Register() {
     const [addUser,{loading, error}] = useMutation(CREATE_USER,{
         onCompleted: (data) => {
             console.log(data)
-            dispatch(setGraphQLData(data));
+            dispatch(setUser(data));
             navigate('/login');
         },
         onError: (error) => {

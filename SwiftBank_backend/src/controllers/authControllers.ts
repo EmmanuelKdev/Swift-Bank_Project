@@ -101,33 +101,39 @@ export class AuthController {
       if (!user[0] || !(await comparePasswords(password, user[0].password_hash))) {
         throw new Error('Invalid credentials');
       } 
-      
+          // Begin transaction
+      await query('BEGIN');
+
+      // Clear any existing session token
+      await query(
+        'UPDATE users SET session_token = NULL WHERE id = $1',
+        [user[0].id]
+      );
+
+      // Generate and set new session token
       const sessToken = await generateSessionToken(user[0].id);
-      await query('UPDATE users SET session_token = $1 WHERE id = $2', [sessToken, user[0].id]);
+      console.log('New session token generated:', sessToken);
 
+      // Update with new token
+      const result = await query(
+        'UPDATE users SET session_token = $1 WHERE id = $2 RETURNING *',
+        [sessToken, user[0].id]
+      );
 
+      if (!result[0]) {
+        await query('ROLLBACK');
+        throw new Error('Failed to update session token');
+      }
 
-  
-      // Step 2: Generate verification code
-     // const verificationCode = generateVerificationCode(5); // Returns { code, expiresAt }
-      //await query(
-       // 'UPDATE users SET web_verification_code = $1, web_verification_expires = $2 WHERE id = $3',
-       // [verificationCode.code, verificationCode.expiresAt, user[0].id]
-      //);
-  
-      // Step 3: Send notification
-      //if (user[0].push_notification_token) {
-        // Send a push notification
-       // await sendPushNotification(
-        //  user[0].push_notification_token,
-         // 'Verification Required',
-         // `Your verification code is ${verificationCode.code}.`
-        //);
-      //} else {
-        //throw new Error('No valid delivery method for verification request');
-      //}
-  
-      return { user: user[0] };
+      // Commit transaction
+      await query('COMMIT');
+      console.log('Session token updated for user:', result[0].id);
+
+      const newUserdata = await query('SELECT * FROM users WHERE id = $1', [result[0].id]);
+      console.log('Pdated User data:', newUserdata[0]);
+     
+      
+      return { user: newUserdata[0] };
     } catch (error) {
       throw new Error(`Login failed: ${error}`);
     }

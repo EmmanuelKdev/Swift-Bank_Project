@@ -3,26 +3,26 @@ import { ApolloServer } from 'apollo-server-express';
 import { typeDefs } from './shema';
 import { resolvers } from './resolvers';
 import { Request, Response } from 'express';
-import cookieParser from 'cookie-parser';
+
 
 
 
 
 export const createApolloServer = async (app: any) => {
-  // Apply cookie parser middleware
-  app.use(cookieParser());
+  
 
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: async ({ req, res }: { req: Request; res: Response }) => {
       // Get auth token from cookies if present
-      const token = req.cookies?.token || '';
+      //const token = req.cookies['swissbank'] || '';
+      //console.log("From Graphql client:----> ",token)
       
       return { 
         req, 
         res,
-        token // Pass token to resolvers
+        //token // Pass token to resolvers
       };
     },
   });

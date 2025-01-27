@@ -34,7 +34,7 @@ const initializeDatabase = async () => {
           account_type VARCHAR(50) NOT NULL,
           balance DECIMAL(15,2) NOT NULL DEFAULT 0.00 CHECK (balance >= 0),
           currency VARCHAR(3) NOT NULL DEFAULT 'USD',
-          status VARCHAR(20) NOT NULL DEFAULT 'active',
+          status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         );

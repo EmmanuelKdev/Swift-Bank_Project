@@ -20,8 +20,36 @@ export const LOGIN_USER = gql`
     initiateWebLogin(email: $email, password: $password) {
       userId
       sessionToken
-      user 
+      user
+      accounts {
+        id
+        accountType
+        accountNumber
+        balance
+        currency
+        status
+      } 
      
     }
+  }
+`;
+
+export const CREATE_ACCOUNT = gql`
+  mutation CreateAccount($input: CreateAccountInput!) {
+    createAccount(input: $input) {
+      id
+      accountType
+      accountNumber
+      balance
+      currency
+      status
+     
+      createdAt
+    }
+  }
+`;
+export const LOGOUT_USER = gql`
+  mutation Logout {
+    logout
   }
 `;
