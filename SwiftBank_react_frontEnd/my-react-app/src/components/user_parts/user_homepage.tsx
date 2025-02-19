@@ -1,6 +1,8 @@
 import { useAppSelector } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { Link } from 'react-router-dom';
+import TransactionsList from './TransactionList';
+
 
 import '../css/user_styles.css'
 import Spinner from 'react-bootstrap/Spinner';
@@ -85,11 +87,11 @@ function UserHomepage() {
         
        </div>
        <div className='transaction_container'>
-
+       <h2 style={{marginTop: '1rem'}}>Transactions</h2>
+       {accounts && accounts.length > 0 && (
+              <TransactionsList accountId={accounts[0].id} />
+            )}
        </div>
-         
-        
-    
        </div> :
         <div>
          <h1> You are not authenticated </h1>

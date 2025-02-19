@@ -17,9 +17,20 @@ interface Account {
   accountNumber: string;
 }
 
+interface Transactions {
+  id: string;
+  accountId: string;
+  transactionType: string;
+  amount: number;
+  balanceAfter: number;
+  description: string;
+  status: string;
+}
+
 interface DataState {
   user: User | null;
   accounts: Account[];
+  transactions: Transactions[];
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
@@ -28,6 +39,7 @@ interface DataState {
 const initialState: DataState = {
   user: null,
   accounts: [],
+  transactions: [],
   isAuthenticated: false,
   loading: false,
   error: null
@@ -44,6 +56,9 @@ const dataSlice = createSlice({
     setAccounts: (state, action: PayloadAction<Account[]>) => {
       state.accounts = action.payload;
     },
+    setTransActions: (state, action: PayloadAction<Transactions[]>) => {
+      state.transactions = action.payload;
+    },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
@@ -54,10 +69,11 @@ const dataSlice = createSlice({
     logout: (state) => {
       state.user = null;
       state.accounts = [];
+      state.transactions = [];
       state.isAuthenticated = false;
     }
   }
 });
 
-export const { setUser, setAccounts, setLoading, setError, logout } = dataSlice.actions;
+export const { setUser, setAccounts, setTransActions ,setLoading, setError, logout } = dataSlice.actions;
 export default dataSlice.reducer;

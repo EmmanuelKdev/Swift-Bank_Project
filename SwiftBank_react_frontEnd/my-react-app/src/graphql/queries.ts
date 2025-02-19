@@ -34,3 +34,17 @@ export const GET_USER_BY_SESSION = gql`
     }
   }
 `;
+export const GET_ACCOUNT_TRANSACTIONS = gql`
+  query GetAccountTransactions($accountId: ID!) {
+    getAccountTransactions(accountId: $accountId) {
+      id
+      accountId
+      transactionType
+      amount
+      balanceAfter
+      description
+      status
+      createdAt
+    }
+  }
+`;
